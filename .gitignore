@@ -2,6 +2,6 @@ venv/
 pynosql_logger/__pycache__/
 .vscode/
 .pypirc
-pynosql_logger.egg-info/
+python_nosql_logger.egg-info/
 dist/
 build/

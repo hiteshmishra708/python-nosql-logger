@@ -13,6 +13,7 @@ req_json = {
     }
 }
 resp = logger.add_log(req_json)
+print(resp)
 
 # add logs
 req_json = {

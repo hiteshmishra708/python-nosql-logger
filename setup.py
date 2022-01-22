@@ -6,12 +6,12 @@ here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
-    name='pynosql_logger',
+    name='python_nosql_logger',
     version='1.0.0',
     description='For logging & accessing application data with NoSQL databases (MongoDB & ElasticSearch)',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/hiteshmishra708/pynosql-logger',
+    url='https://github.com/hiteshmishra708/python-nosql-logger',
     author='Hitesh Mishra',
     author_email='hiteshmishra708@gmail.com',
     classifiers=[  # Optional
@@ -36,8 +36,8 @@ setup(
     packages=find_packages(),
     python_requires='>=3.6, <4',
     project_urls={
-        'Bug Reports': 'https://github.com/hiteshmishra708/pynosql-logger/issues',
+        'Bug Reports': 'https://github.com/hiteshmishra708/python-nosql-logger/issues',
         'Say Thanks!': 'https://linkedin.com/in/hiteshmishra708/',
-        'Source': 'https://github.com/hiteshmishra708/pynosql-logger/',
+        'Source': 'https://github.com/hiteshmishra708/python-nosql-logger/',
     },
 )
