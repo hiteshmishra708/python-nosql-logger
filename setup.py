@@ -33,6 +33,7 @@ setup(
     ],
     keywords='logger, django logger, flask logger, nosql logger, mongodb logger, setuptools, development, elasticsearch, elastic search logging',
     # package_dir={'': 'pynosql_logger'},
+    install_requires=['requests'],
     packages=find_packages(),
     python_requires='>=3.6, <4',
     project_urls={

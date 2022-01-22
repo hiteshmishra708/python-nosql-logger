@@ -35,8 +35,7 @@
       'users': {
           'first_name': 'Hitesh',
           'last_name': 'Mishra',
-          'email': 'hiteshmishra708@gmail.com',
-          'id': 1
+          'email': 'hiteshmishra708@gmail.com'
       }
   }
   resp = logger.add_log(req_json)
@@ -48,13 +47,11 @@
       'users': [{
           'first_name': 'Test',
           'last_name': 'User 1',
-          'email': 'testuser1@mailnesia.com',
-          'id': 2
+          'email': 'testuser1@mailnesia.com'
       }, {
           'first_name': 'Test',
           'last_name': 'User 2',
-          'email': 'testuser2@mailnesia.com',
-          'id': 3
+          'email': 'testuser2@mailnesia.com'
       }]
   }
   resp = logger.add_log(req_json)

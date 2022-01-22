@@ -12,6 +12,7 @@ req_json = {
     }
 }
 resp = logger.add_log(req_json)
+print('add_log', resp)
 
 # add logs
 req_json = {
@@ -26,6 +27,7 @@ req_json = {
     }]
 }
 resp = logger.add_log(req_json)
+print('add_logs', resp)
 
 # get log
 req_json = {
@@ -34,9 +36,11 @@ req_json = {
     }
 }
 resp = logger.get_log(req_json)
+print('get_log', resp)
 
 # get logs
 req_json = {
     'collection': 'users'
 }
 resp = logger.get_all_logs(req_json)
+print('get_all_logs', resp)

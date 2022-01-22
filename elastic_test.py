@@ -8,28 +8,26 @@ req_json = {
     'users': {
         'first_name': 'Hitesh',
         'last_name': 'Mishra',
-        'email': 'hiteshmishra708@gmail.com',
-        'id': 1
+        'email': 'hiteshmishra708@gmail.com'
     }
 }
 resp = logger.add_log(req_json)
-print(resp)
+print('add_log', resp)
 
 # add logs
 req_json = {
     'users': [{
         'first_name': 'Test',
         'last_name': 'User 1',
-        'email': 'testuser1@mailnesia.com',
-        'id': 2
+        'email': 'testuser1@mailnesia.com'
     }, {
         'first_name': 'Test',
         'last_name': 'User 2',
-        'email': 'testuser2@mailnesia.com',
-        'id': 3
+        'email': 'testuser2@mailnesia.com'
     }]
 }
 resp = logger.add_log(req_json)
+print('add_logs', resp)
 
 # get log
 req_json = {
@@ -38,9 +36,11 @@ req_json = {
     }
 }
 resp = logger.get_log(req_json)
+print('get_log', resp)
 
 # get logs
 req_json = {
     'collection': 'users'
 }
 resp = logger.get_all_logs(req_json)
+print('get_all_logs', resp)

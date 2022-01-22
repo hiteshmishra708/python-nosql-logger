@@ -1,6 +1,7 @@
 from pynosql_logger.constant import DEFAULT_DB_NAME
-from pynosql_logger.helper import get_json, ConnectionType
-from pynosql_logger.response import Response
+from pynosql_logger.helper import get_json
+from pynosql_logger.classes import Meta, Response, ConnectionType
+import json, requests
 
 class MongoLogger:
     def __init__(self, mongodb_connection_string, c_type=ConnectionType.SYNC, db_name=DEFAULT_DB_NAME):
@@ -25,10 +26,12 @@ class MongoLogger:
             for key in keys:
                 if type(req_json[key]) == list:
                     for record in req_json[key]:
-                        self.__db[key].insert_one(record)
+                        item = Meta.add_meta(key, record)
+                        self.__db[key].insert_one(item)
                         count += 1
                 else:
-                    self.__db[key].insert_one(req_json[key])
+                    item = Meta.add_meta(key, req_json[key])
+                    self.__db[key].insert_one(item)
                     count += 1
             message = 'Added {} record successfully in {} collection'.format(count, ', '.join(keys))
             return {
@@ -79,15 +82,15 @@ class ElasticLogger:
         self.__c_type = c_type
 
     def __insert(self, idx, arr):
-        import json, requests
         url = '{}/{}/'.format(self.__elastic_url, idx)
         resp = requests.get(url)
         if resp.json().get("error"):
             resp = requests.put(url, json={})
         njson = []
         for item in arr:
+            item = Meta.add_meta(idx, item)
             njson.append(
-                json.dumps({"update": {"_id": item["id"], "_index": idx}}))
+                json.dumps({"update": {"_id": item['_log_id'], "_index": idx}}))
             njson.append(json.dumps({"doc": item, "doc_as_upsert": True}))
 
         if njson:
