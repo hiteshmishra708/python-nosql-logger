@@ -1,2 +1,4 @@
 venv/
 mongologger/__pycache__/
+.vscode/
+.pypirc
