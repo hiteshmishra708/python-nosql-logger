@@ -1,4 +1,4 @@
-from nosqllogger.loggers import MongoLogger
+from pynosql_logger.loggers import MongoLogger
 
 connection_string = 'mongodb+srv://hitesh:hitesh@cluster0.cfy1e.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 logger = MongoLogger(connection_string)

@@ -6,7 +6,7 @@ here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
-    name='pynosql-logger',
+    name='pynosql_logger',
     version='1.0.0',
     description='For logging & accessing application data with NoSQL databases (MongoDB & ElasticSearch)',
     long_description=long_description,
@@ -32,7 +32,7 @@ setup(
         'Programming Language :: Python :: 3 :: Only',
     ],
     keywords='logger, django logger, flask logger, nosql logger, mongodb logger, setuptools, development, elasticsearch, elastic search logging',
-    package_dir={'': 'nosqllogger'},
+    # package_dir={'': 'pynosql_logger'},
     packages=find_packages(),
     python_requires='>=3.6, <4',
     project_urls={

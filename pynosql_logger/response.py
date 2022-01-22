@@ -1,4 +1,4 @@
-from nosqllogger.constant import DEFAULT_SUCCESS_MESSAGE
+from pynosql_logger.constant import DEFAULT_SUCCESS_MESSAGE
 
 class Response:
     @staticmethod

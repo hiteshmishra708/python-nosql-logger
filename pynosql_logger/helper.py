@@ -1,7 +1,5 @@
 import json
-# from flask import request
 from functools import wraps
-# from mongologger.constant import ALLOWED_REQUESTS
 
 class ConnectionType:
     SYNC = 1

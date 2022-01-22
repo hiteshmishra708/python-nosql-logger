@@ -9,7 +9,7 @@
 
 ### Initialize
 ```
-  from nosqllogger.loggers import MongoLogger
+  from pynosql_logger.loggers import MongoLogger
 
   connection_string = 'your_mongodb_connection_string'
   logger = MongoLogger(connection_string)
@@ -23,7 +23,7 @@
 
 ### Initialize
 ```
-  from nosqllogger.loggers import ElasticLogger
+  from pynosql_logger.loggers import ElasticLogger
   
   elastic_url = 'http://127.0.0.1:9200'
   logger = ElasticLogger(elastic_url)

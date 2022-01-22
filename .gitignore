@@ -1,4 +1,7 @@
 venv/
-nosqllogger/__pycache__/
+pynosql_logger/__pycache__/
 .vscode/
 .pypirc
+pynosql_logger.egg-info/
+dist/
+build/

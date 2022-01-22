@@ -1,4 +1,4 @@
-from nosqllogger.loggers import ElasticLogger
+from pynosql_logger.loggers import ElasticLogger
 
 elastic_url = 'http://127.0.0.1:9200'
 logger = ElasticLogger(elastic_url)

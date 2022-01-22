@@ -1,6 +1,6 @@
-from nosqllogger.constant import DEFAULT_DB_NAME
-from nosqllogger.helper import get_json, ConnectionType
-from nosqllogger.response import Response
+from pynosql_logger.constant import DEFAULT_DB_NAME
+from pynosql_logger.helper import get_json, ConnectionType
+from pynosql_logger.response import Response
 
 class MongoLogger:
     def __init__(self, mongodb_connection_string, c_type=ConnectionType.SYNC, db_name=DEFAULT_DB_NAME):
