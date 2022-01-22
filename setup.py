@@ -31,7 +31,7 @@ setup(
         "Programming Language :: Python :: 3.10",
         'Programming Language :: Python :: 3 :: Only',
     ],
-    keywords='logger, django logger, flask logger, nosql logger, mongodb logger, setuptools, development', 'elasticsearch', 'elastic search logging'
+    keywords='logger, django logger, flask logger, nosql logger, mongodb logger, setuptools, development, elasticsearch, elastic search logging',
     package_dir={'': 'nosqllogger'},
     packages=find_packages(),
     python_requires='>=3.6, <4',
