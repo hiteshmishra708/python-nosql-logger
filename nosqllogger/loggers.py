@@ -39,7 +39,7 @@ class MongoLogger:
             return Response.get_error(ex)
 
     def get_log(self, req_json):
-        """Returns the log that matches the query."""
+        """Return the logs that matches the query."""
         try:
             count, keys, resp = 0, req_json.keys(), {}
             for key in keys:
@@ -98,6 +98,39 @@ class ElasticLogger:
             if resp.json().get("errors"):
                 print("Not updated")
 
+    def __find(self, idx, req_query):
+        import requests
+        fields = list(req_query.keys())
+        es_query = {
+            # "from": 0,
+            # "size": 10,
+            "query": {
+                "multi_match": {
+                "query": req_query[fields[0]],
+                "type": "bool_prefix",
+                "fields": fields
+                }
+            }
+        }
+        url = "{}/{}/_search".format(self.__elastic_url, idx)
+        resp = requests.get(url, json=es_query)
+        rs = resp.json()
+        eresults = rs.get("hits", {}).get("hits", [])
+        return [pr["_source"] for pr in eresults]
+
+    def __find_all(self, idx):
+        import requests
+        es_query = {
+            "query": {
+                "match_all": {}
+            }
+        }
+        url = "{}/{}/_search".format(self.__elastic_url, idx)
+        resp = requests.get(url, json=es_query)
+        rs = resp.json()
+        eresults = rs.get("hits", {}).get("hits", [])
+        return [pr["_source"] for pr in eresults]
+
     def add_log(self, req_json):
         """Update the logs into the index if index exists
            else create index and add logs.
@@ -116,5 +149,40 @@ class ElasticLogger:
                 'success': True,
                 'message': message
             }
+        except Exception as ex:
+            return Response.get_error(ex)
+
+    def get_log(self, req_json):
+        """Return the logs that matches the query."""
+        try:
+            count, keys, resp = 0, req_json.keys(), {}
+            for key in keys:
+                resp[key] = list(self.__find(key, req_json[key]))
+                count += len(resp[key])
+            message = 'Found {} record successfully in {} collection'.format(count, ', '.join(resp.keys()))
+            res = get_json(resp)
+            res['success'] = True
+            res['message'] = message
+            return Response.get_response(res, message)
+        except Exception as ex:
+            return Response.get_error(ex)
+
+    def get_all_logs(self, req_json):
+        """Returns all logs of collection."""
+        try:
+            count, keys, resp = 0, req_json.keys(), {}
+            for key in keys:
+                if type(req_json[key]) == list:
+                    for collection in req_json[key]:
+                        resp[collection] = get_json(list(self.__find_all(collection)))
+                        count += 1
+                else:
+                    resp[req_json[key]] = get_json(list(self.__find_all(req_json[key])))
+                    count += 1
+            message = 'Found {} record successfully in {} collection'.format(count, ', '.join(resp.keys()))
+            res = get_json(resp)
+            res['success'] = True
+            res['message'] = message
+            return Response.get_response(res, message)
         except Exception as ex:
             return Response.get_error(ex)

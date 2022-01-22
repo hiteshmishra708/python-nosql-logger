@@ -1,4 +1,3 @@
-# from nosqllogger.loggers import ElasticLogger
 from nosqllogger.loggers import ElasticLogger
 
 elastic_url = 'http://127.0.0.1:9200'
@@ -31,16 +30,16 @@ req_json = {
 }
 resp = logger.add_log(req_json)
 
-# # get log
-# req_json = {
-#     'users': {
-#         'first_name': 'Hitesh'
-#     }
-# }
-# resp = logger.get_log(req_json)
+# get log
+req_json = {
+    'users': {
+        'email': '@mailnesia'
+    }
+}
+resp = logger.get_log(req_json)
 
-# # get logs
-# req_json = {
-#     'collection': 'users'
-# }
-# resp = logger.get_all_logs(req_json)
+# get logs
+req_json = {
+    'collection': 'users'
+}
+resp = logger.get_all_logs(req_json)
