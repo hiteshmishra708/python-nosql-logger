@@ -1,1 +1,2 @@
-pymongo[srv]
+requests
+# pymongo[srv]

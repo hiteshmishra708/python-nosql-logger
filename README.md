@@ -36,6 +36,7 @@
           'first_name': 'Hitesh',
           'last_name': 'Mishra',
           'email': 'hiteshmishra708@gmail.com',
+          'id': 1
       }
   }
   resp = logger.add_log(req_json)
@@ -48,10 +49,12 @@
           'first_name': 'Test',
           'last_name': 'User 1',
           'email': 'testuser1@mailnesia.com',
+          'id': 2
       }, {
           'first_name': 'Test',
           'last_name': 'User 2',
           'email': 'testuser2@mailnesia.com',
+          'id': 3
       }]
   }
   resp = logger.add_log(req_json)
