@@ -3,6 +3,10 @@ import json
 from functools import wraps
 # from mongologger.constant import ALLOWED_REQUESTS
 
+class ConnectionType:
+    SYNC = 1
+    ASYNC = 2
+
 def get_json(data):
     return json.loads(json.dumps(data, default=str))
 

@@ -1,4 +1,4 @@
-from mongologger.constant import DEFAULT_SUCCESS_MESSAGE
+from nosqllogger.constant import DEFAULT_SUCCESS_MESSAGE
 
 class Response:
     @staticmethod

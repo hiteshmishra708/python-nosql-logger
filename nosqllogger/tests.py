@@ -1,6 +1,5 @@
 from unittest import TestCase
-from mongologger.logger import MongoLogger
-
+from nosqllogger.loggers import MongoLogger
 
 class PyLoggerTests(TestCase):
     def setUp(self):
