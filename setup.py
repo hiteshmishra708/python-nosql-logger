@@ -6,12 +6,12 @@ here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
-    name='pymongo-logger',
-    version='1.0.1',
-    description='For logging & accessing application data into mongodb',
+    name='pynosql-logger',
+    version='1.0.0',
+    description='For logging & accessing application data with NoSQL databases (MongoDB & ElasticSearch)',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/hiteshmishra708/pymongo-logger',
+    url='https://github.com/hiteshmishra708/pynosql-logger',
     author='Hitesh Mishra',
     author_email='hiteshmishra708@gmail.com',
     classifiers=[  # Optional
@@ -31,13 +31,13 @@ setup(
         "Programming Language :: Python :: 3.10",
         'Programming Language :: Python :: 3 :: Only',
     ],
-    keywords='logger, django logger, flask logger, nosql logger, mongodb logger, setuptools, development',
-    package_dir={'': 'mongologger'},
+    keywords='logger, django logger, flask logger, nosql logger, mongodb logger, setuptools, development', 'elasticsearch', 'elastic search logging'
+    package_dir={'': 'nosqllogger'},
     packages=find_packages(),
     python_requires='>=3.6, <4',
     project_urls={
-        'Bug Reports': 'https://github.com/hiteshmishra708/pymongo-logger/issues',
+        'Bug Reports': 'https://github.com/hiteshmishra708/pynosql-logger/issues',
         'Say Thanks!': 'https://linkedin.com/in/hiteshmishra708/',
-        'Source': 'https://github.com/hiteshmishra708/pymongo-logger/',
+        'Source': 'https://github.com/hiteshmishra708/pynosql-logger/',
     },
 )

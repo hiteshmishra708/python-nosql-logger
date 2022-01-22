@@ -1,4 +1,3 @@
-from pymongo import MongoClient
 from nosqllogger.constant import DEFAULT_DB_NAME
 from nosqllogger.helper import get_json, ConnectionType
 from nosqllogger.response import Response
@@ -12,6 +11,7 @@ class MongoLogger:
 
     def __connect_db(self):
         """Connect to MongoDB database with the given connection string."""
+        from pymongo import MongoClient
         client = MongoClient(self.__connection_string)
         db = client[self.__db_name]
         return db

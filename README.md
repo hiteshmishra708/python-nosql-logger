@@ -1,17 +1,32 @@
-# pymongo-logger
-pymongo-logger
+# pynosql-logger
 
-## Installation
+## Installation steps if using MongoDB
 
 ```
   pip install pymongo #"pymongo[srv]" or "pymongo[aws]"
-  pip install pymongo-logger
+  pip install pynosql-logger
 ```
 
 ### Initialize
 ```
+  from nosqllogger.loggers import MongoLogger
+
   connection_string = 'your_mongodb_connection_string'
   logger = MongoLogger(connection_string)
+```
+
+## Installation steps if using ElasticSearch
+
+```
+  pip install pynosql-logger
+```
+
+### Initialize
+```
+  from nosqllogger.loggers import ElasticLogger
+  
+  elastic_url = 'http://127.0.0.1:9200'
+  logger = ElasticLogger(elastic_url)
 ```
 
 ### Add Log
