@@ -1,6 +1,13 @@
 # pymongo-logger
 pymongo-logger
 
+## Installation
+
+```
+  pip install pymongo #"pymongo[srv]" or "pymongo[aws]"
+  pip install pymongo-logger
+```
+
 ### Initialize
 ```
   connection_string = 'your_mongodb_connection_string'
@@ -16,7 +23,7 @@ pymongo-logger
           'email': 'hiteshmishra708@gmail.com',
       }
   }
-  resp = self.logger.add_log(req_json)
+  resp = logger.add_log(req_json)
 ```
 
 ### Add Bulk Log
@@ -50,5 +57,5 @@ pymongo-logger
   req_json = {
       'collection': 'users'
   }
-  resp = self.logger.get_all_logs(req_json)
+  resp = logger.get_all_logs(req_json)
 ```
