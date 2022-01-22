@@ -11,11 +11,15 @@ class MongoLogger:
         self.__db = self.__connect_db()
 
     def __connect_db(self):
+        """Connect to MongoDB database with the given connection string."""
         client = MongoClient(self.__connection_string)
         db = client[self.__db_name]
         return db
 
     def add_log(self, req_json):
+        """Update the logs into the collection if collection exists
+           else create collection and add logs.
+        """
         try:
             count, keys = 0, req_json.keys()
             for key in keys:
@@ -35,6 +39,7 @@ class MongoLogger:
             return Response.get_error(ex)
 
     def get_log(self, req_json):
+        """Returns the log that matches the query."""
         try:
             count, keys, resp = 0, req_json.keys(), {}
             for key in keys:
@@ -49,6 +54,7 @@ class MongoLogger:
             return Response.get_error(ex)
     
     def get_all_logs(self, req_json):
+        """Returns all logs of collection."""
         try:
             count, keys, resp = 0, req_json.keys(), {}
             for key in keys:
