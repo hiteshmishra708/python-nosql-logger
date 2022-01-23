@@ -1,7 +1,7 @@
 from pynosql_logger.constant import DEFAULT_DB_NAME
 from pynosql_logger.helper import get_json
 from pynosql_logger.classes import Meta, Response
-import json, requests
+import json
 
 class MongoLogger:
     def __init__(self, mongodb_connection_string, db_name=DEFAULT_DB_NAME):
@@ -80,6 +80,7 @@ class ElasticLogger:
         self.__elastic_url = elastic_url
 
     def __insert(self, idx, arr):
+        import requests
         url = '{}/{}/'.format(self.__elastic_url, idx)
         resp = requests.get(url)
         if resp.json().get("error"):

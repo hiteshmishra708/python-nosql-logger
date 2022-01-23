@@ -4,29 +4,46 @@
 
 ```
   pip install pymongo #"pymongo[srv]" or "pymongo[aws]"
-  pip install pynosql-logger
+  pip install python-nosql-logger
 ```
 
 ### Initialize
+#### For synchronous mongo logger
 ```
   from pynosql_logger.loggers import MongoLogger
 
   connection_string = 'your_mongodb_connection_string'
   logger = MongoLogger(connection_string)
 ```
+#### For asynchronous mongo logger
+```
+  from pynosql_logger.async_loggers import AsyncMongoLogger
+  
+  elastic_url = 'http://127.0.0.1:9200'
+  logger = AsyncMongoLogger(elastic_url)
+```
 
 ## Installation steps if using ElasticSearch
 
 ```
-  pip install pynosql-logger
+  pip install requests
+  pip install python-nosql-logger
 ```
 
 ### Initialize
+#### For synchronous elastic logger
 ```
   from pynosql_logger.loggers import ElasticLogger
   
   elastic_url = 'http://127.0.0.1:9200'
   logger = ElasticLogger(elastic_url)
+```
+#### For asynchronous elastic logger
+```
+  from pynosql_logger.async_loggers import AsyncElasticLogger
+  
+  elastic_url = 'http://127.0.0.1:9200'
+  logger = AsyncElasticLogger(elastic_url)
 ```
 
 ### Add Log
