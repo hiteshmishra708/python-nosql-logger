@@ -1,4 +1,4 @@
-# pynosql-logger
+# python-nosql-logger
 
 ## Installation steps if using MongoDB
 
@@ -84,7 +84,7 @@
   resp = logger.get_log(req_json)
 ```
 
-### Add All Logs
+### Get All Logs
 ```
   req_json = {
       'collection': 'users'
