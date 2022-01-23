@@ -104,13 +104,11 @@ class ElasticLogger:
         import requests
         fields = list(req_query.keys())
         es_query = {
-            # "from": 0,
-            # "size": 10,
             "query": {
                 "multi_match": {
-                "query": req_query[fields[0]],
-                "type": "bool_prefix",
-                "fields": fields
+                    "query": req_query[fields[0]],
+                    "type": "bool_prefix",
+                    "fields": fields
                 }
             }
         }
