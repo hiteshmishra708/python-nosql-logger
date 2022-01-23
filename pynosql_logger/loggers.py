@@ -1,14 +1,13 @@
 from pynosql_logger.constant import DEFAULT_DB_NAME
 from pynosql_logger.helper import get_json
-from pynosql_logger.classes import Meta, Response, ConnectionType
+from pynosql_logger.classes import Meta, Response
 import json, requests
 
 class MongoLogger:
-    def __init__(self, mongodb_connection_string, c_type=ConnectionType.SYNC, db_name=DEFAULT_DB_NAME):
+    def __init__(self, mongodb_connection_string, db_name=DEFAULT_DB_NAME):
         self.__connection_string = mongodb_connection_string
         self.__db_name = db_name
         self.__db = self.__connect_db()
-        self.__c_type = c_type
 
     def __connect_db(self):
         """Connect to MongoDB database with the given connection string."""
@@ -77,9 +76,8 @@ class MongoLogger:
             return Response.get_error(ex)
 
 class ElasticLogger:
-    def __init__(self, elastic_url, c_type=ConnectionType.SYNC):
+    def __init__(self, elastic_url):
         self.__elastic_url = elastic_url
-        self.__c_type = c_type
 
     def __insert(self, idx, arr):
         url = '{}/{}/'.format(self.__elastic_url, idx)

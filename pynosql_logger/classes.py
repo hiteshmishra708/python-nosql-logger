@@ -2,10 +2,6 @@ from pynosql_logger.constant import DEFAULT_SUCCESS_MESSAGE
 from pynosql_logger.helper import get_uuid
 from datetime import datetime
 
-class ConnectionType:
-    SYNC = 1
-    ASYNC = 2
-
 class Meta:
     @staticmethod
     def add_meta(idx, item):
