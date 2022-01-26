@@ -25,3 +25,6 @@ class Response:
             'success': False,
             'message': str(err)
         }
+
+class LoggerException(Exception):
+    pass

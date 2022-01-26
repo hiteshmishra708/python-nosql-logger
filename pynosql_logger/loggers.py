@@ -1,6 +1,6 @@
 from pynosql_logger.constant import DEFAULT_DB_NAME
 from pynosql_logger.helper import get_json
-from pynosql_logger.classes import Meta, Response
+from pynosql_logger.classes import Meta, Response, LoggerException
 import json
 
 class MongoLogger:
@@ -78,6 +78,14 @@ class MongoLogger:
 class ElasticLogger:
     def __init__(self, elastic_url):
         self.__elastic_url = elastic_url
+        self.__check_connection()
+
+    def __check_connection(self):
+        import requests
+        try:
+            resp = requests.get(self.__elastic_url)
+        except:
+            raise LoggerException('Failed to connect elastic server make sure it is working & accessible')
 
     def __insert(self, idx, arr):
         import requests
