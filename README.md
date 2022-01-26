@@ -19,8 +19,8 @@
 ```
   from pynosql_logger.async_loggers import AsyncMongoLogger
   
-  elastic_url = 'http://127.0.0.1:9200'
-  logger = AsyncMongoLogger(elastic_url)
+  connection_string = 'your_mongodb_connection_string'
+  logger = AsyncMongoLogger(connection_string)
 ```
 
 ## Installation steps if using ElasticSearch
