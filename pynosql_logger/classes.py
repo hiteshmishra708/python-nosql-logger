@@ -7,7 +7,9 @@ class Meta:
     def add_meta(idx, item):
         if item:
             item['_log_id'] = get_uuid(idx)
-            item['_updated_at'] = datetime.now().strftime("%d-%b-%Y %I:%M %p")
+            now = datetime.now()
+            item['_updated_at'] = now.strftime("%d-%b-%Y %I:%M %p")
+            item['_updated_date'] = now.strftime("%Y-%m-%d")
         return item
 
 class Response:
