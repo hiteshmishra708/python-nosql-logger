@@ -100,18 +100,8 @@ class ElasticLogger:
             if resp.json().get("errors"):
                 print("Not updated")
 
-    def __find(self, idx, req_query):
+    def __find(self, idx, es_query):
         import requests
-        fields = list(req_query.keys())
-        es_query = {
-            "query": {
-                "multi_match": {
-                    "query": req_query[fields[0]],
-                    "type": "bool_prefix",
-                    "fields": fields
-                }
-            }
-        }
         url = "{}/{}/_search".format(self.__elastic_url, idx)
         resp = requests.get(url, json=es_query)
         rs = resp.json()

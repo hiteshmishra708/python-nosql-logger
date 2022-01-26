@@ -30,12 +30,18 @@ resp = logger.add_log(req_json)
 print('add_logs', resp)
 
 # get log
-req_json = {
-    'users': {
-        'email': '@mailnesia'
+es_query = {
+    "users": {
+        "query": {
+            "multi_match": {
+                "query": '@mailnesia',
+                "type": "bool_prefix",
+                "fields": ['email']
+            }
+        }
     }
 }
-resp = logger.get_log(req_json)
+resp = logger.get_log(es_query)
 print('get_log', resp)
 
 # get logs
