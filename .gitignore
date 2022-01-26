@@ -5,3 +5,5 @@ pynosql_logger/__pycache__/
 python_nosql_logger.egg-info/
 dist/
 build/
+elastic_test.py
+mongo_test.py
