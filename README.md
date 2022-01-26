@@ -75,10 +75,11 @@
 ```
 
 ### Get Log
+You can pass mongo query or elastic query to get the logs
 ```
   req_json = {
       'users': {
-          'first_name': 'Hitesh'
+        'first_name': 'Hitesh'
       }
   }
   resp = logger.get_log(req_json)
