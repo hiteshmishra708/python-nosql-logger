@@ -1,12 +1,13 @@
 from pynosql_logger.constant import DEFAULT_DB_NAME
 from pynosql_logger.helper import get_json
-from pynosql_logger.classes import Meta, Response, LoggerException
+from pynosql_logger.classes import Meta, Response, LoggerException, SystemLog
 import json
 
 class MongoLogger:
-    def __init__(self, mongodb_connection_string, db_name=DEFAULT_DB_NAME):
+    def __init__(self, mongodb_connection_string, db_name=DEFAULT_DB_NAME, log_actions=True):
         self.__connection_string = mongodb_connection_string
         self.__db_name = db_name
+        self.log_actions = log_actions
         self.__db = self.__connect_db()
 
     def __connect_db(self):
@@ -33,6 +34,8 @@ class MongoLogger:
                     self.__db[key].insert_one(item)
                     count += 1
             message = 'Added {} record successfully in {} collection'.format(count, ', '.join(keys))
+            if self.log_actions:
+                SystemLog.print_log(message)
             return {
                 'success': True,
                 'message': message
@@ -48,6 +51,8 @@ class MongoLogger:
                 resp[key] = list(self.__db[key].find(req_json[key]))
                 count += len(resp[key])
             message = 'Found {} record successfully in {} collection'.format(count, ', '.join(resp.keys()))
+            if self.log_actions:
+                SystemLog.print_log(message)
             res = get_json(resp)
             res['success'] = True
             res['message'] = message
@@ -68,6 +73,8 @@ class MongoLogger:
                     resp[req_json[key]] = get_json(list(self.__db[req_json[key]].find()))
                     count += 1
             message = 'Found {} record successfully in {} collection'.format(count, ', '.join(resp.keys()))
+            if self.log_actions:
+                SystemLog.print_log(message)
             res = get_json(resp)
             res['success'] = True
             res['message'] = message
@@ -76,8 +83,9 @@ class MongoLogger:
             return Response.get_error(ex)
 
 class ElasticLogger:
-    def __init__(self, elastic_url):
+    def __init__(self, elastic_url, log_actions=True):
         self.__elastic_url = elastic_url
+        self.log_actions = log_actions
         self.__check_connection()
 
     def __check_connection(self):
@@ -143,6 +151,8 @@ class ElasticLogger:
                     self.__insert(key, [req_json[key]])
                     count += 1
             message = 'Added {} record successfully in {} collection'.format(count, ', '.join(keys))
+            if self.log_actions:
+                SystemLog.print_log(message)
             return {
                 'success': True,
                 'message': message
@@ -158,6 +168,8 @@ class ElasticLogger:
                 resp[key] = list(self.__find(key, req_json[key]))
                 count += len(resp[key])
             message = 'Found {} record successfully in {} collection'.format(count, ', '.join(resp.keys()))
+            if self.log_actions:
+                SystemLog.print_log(message)
             res = get_json(resp)
             res['success'] = True
             res['message'] = message
@@ -178,6 +190,8 @@ class ElasticLogger:
                     resp[req_json[key]] = get_json(list(self.__find_all(req_json[key])))
                     count += 1
             message = 'Found {} record successfully in {} collection'.format(count, ', '.join(resp.keys()))
+            if self.log_actions:
+                SystemLog.print_log(message)
             res = get_json(resp)
             res['success'] = True
             res['message'] = message

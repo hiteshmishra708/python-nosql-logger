@@ -28,3 +28,8 @@ class Response:
 
 class LoggerException(Exception):
     pass
+
+class SystemLog:
+    @staticmethod
+    def print_log(msg):
+        print(msg)
