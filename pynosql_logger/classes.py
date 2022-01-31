@@ -32,4 +32,5 @@ class LoggerException(Exception):
 class SystemLog:
     @staticmethod
     def print_log(msg):
-        print(msg)
+        now = datetime.now().strftime("%d-%b-%Y %I:%M %p")
+        print('python_nosql_logger => {} => {}'.format(now, msg))
