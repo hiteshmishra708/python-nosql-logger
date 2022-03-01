@@ -111,7 +111,8 @@ class ElasticLogger:
                         }
                     ]
                 }
-                resp = requests.put(url)
+                headers = {'Content-type': 'application/json'}
+                resp = requests.put(url, data=json.dumps(ingest_json), headers=headers)
                 if resp.json().get("errors"):
                     raise LoggerException('Failed to create a ingest pipeline')
         except Exception as ex:
