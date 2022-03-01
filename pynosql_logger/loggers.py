@@ -149,7 +149,11 @@ class ElasticLogger:
         resp = requests.get(url, json=es_query)
         rs = resp.json()
         eresults = rs.get("hits", {}).get("hits", [])
-        return [pr["_source"] for pr in eresults]
+        count = rs.get("hits", {}).get("total", {}).get("value", 0)
+        return {
+            "records": [pr["_source"] for pr in eresults],
+            "total": count
+        }
 
     def __find_all(self, idx):
         es_query = {
@@ -161,7 +165,11 @@ class ElasticLogger:
         resp = requests.get(url, json=es_query)
         rs = resp.json()
         eresults = rs.get("hits", {}).get("hits", [])
-        return [pr["_source"] for pr in eresults]
+        count = rs.get("hits", {}).get("total", {}).get("value", 0)
+        return {
+            "records": [pr["_source"] for pr in eresults],
+            "total": count
+        }
 
     def add_log(self, req_json):
         """Update the logs into the index if index exists
@@ -191,8 +199,10 @@ class ElasticLogger:
         try:
             count, keys, resp = 0, req_json.keys(), {}
             for key in keys:
-                resp[key] = list(self.__find(key, req_json[key]))
-                count += len(resp[key])
+                data = self.__find(key, req_json[key])
+                # resp[key] = list(data)
+                resp[key] = data
+                count += data['total']
             message = 'Found {} record successfully in {} collection'.format(count, ', '.join(resp.keys()))
             if self.log_actions:
                 SystemLog.print_log(message)
@@ -210,11 +220,14 @@ class ElasticLogger:
             for key in keys:
                 if type(req_json[key]) == list:
                     for collection in req_json[key]:
-                        resp[collection] = get_json(list(self.__find_all(collection)))
-                        count += 1
+                        data = self.__find_all(collection)
+                        resp[collection] = get_json(data)
+                        # resp[collection] = get_json(list(self.__find_all(collection)))
+                        count += data['total']
                 else:
-                    resp[req_json[key]] = get_json(list(self.__find_all(req_json[key])))
-                    count += 1
+                    data = self.__find_all(req_json[key])
+                    resp[req_json[key]] = get_json(data)
+                    count += data['total']
             message = 'Found {} record successfully in {} collection'.format(count, ', '.join(resp.keys()))
             if self.log_actions:
                 SystemLog.print_log(message)
