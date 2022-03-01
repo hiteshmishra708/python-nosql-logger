@@ -1,7 +1,7 @@
 from pynosql_logger.constant import DEFAULT_DB_NAME
 from pynosql_logger.helper import get_json
 from pynosql_logger.classes import Meta, Response, LoggerException, SystemLog
-import json
+import json, requests
 
 class MongoLogger:
     def __init__(self, mongodb_connection_string, db_name=DEFAULT_DB_NAME, log_actions=True):
@@ -89,14 +89,12 @@ class ElasticLogger:
         self.__check_connection()
 
     def __check_connection(self):
-        import requests
         try:
             resp = requests.get(self.__elastic_url)
         except:
             raise LoggerException('Failed to connect elastic server make sure it is working & accessible')
 
     def __insert(self, idx, arr):
-        import requests
         url = '{}/{}/'.format(self.__elastic_url, idx)
         resp = requests.get(url)
         if resp.json().get("error"):
@@ -117,7 +115,6 @@ class ElasticLogger:
                 print("Not updated")
 
     def __find(self, idx, es_query):
-        import requests
         url = "{}/{}/_search".format(self.__elastic_url, idx)
         resp = requests.get(url, json=es_query)
         rs = resp.json()
@@ -125,7 +122,6 @@ class ElasticLogger:
         return [pr["_source"] for pr in eresults]
 
     def __find_all(self, idx):
-        import requests
         es_query = {
             "query": {
                 "match_all": {}
@@ -159,7 +155,7 @@ class ElasticLogger:
             }
         except Exception as ex:
             return Response.get_error(ex)
-
+        
     def get_log(self, req_json):
         """Return the logs that matches the query."""
         try:
@@ -196,5 +192,22 @@ class ElasticLogger:
             res['success'] = True
             res['message'] = message
             return Response.get_response(res, message)
+        except Exception as ex:
+            return Response.get_error(ex)
+
+    def get_log_indexes(self):
+        """Get the available log indexes.
+        """
+        try:
+            resp = requests.get(settings.ELASTIC_SEARCH_END_POINT + '/_cat/indices?format=json&pretty=true')
+            all_indexes = json.loads(resp.text)
+            all_indexes = [i['index'] for i in all_indexes if '_log' in i['index']]
+            message = 'Found {} index'.format(count, ', '.join(len(all_indexes)))
+            if self.log_actions:
+                SystemLog.print_log(message)
+            return {
+                'success': True,
+                'message': message
+            }
         except Exception as ex:
             return Response.get_error(ex)
