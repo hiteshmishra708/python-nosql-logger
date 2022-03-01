@@ -87,6 +87,7 @@ class ElasticLogger:
         self.__elastic_url = elastic_url
         self.log_actions = log_actions
         self.__check_connection()
+        self.__add_timestamp()
 
     def __check_connection(self):
         try:
@@ -94,11 +95,38 @@ class ElasticLogger:
         except:
             raise LoggerException('Failed to connect elastic server make sure it is working & accessible')
 
+    def __add_timestamp(self):
+        try:
+            url = '{}/{}/'.format(self.__elastic_url, '_ingest/pipeline/auto_now_add')
+            resp = requests.get(url)
+            if resp.status_code != 200:
+                ingest_json = {
+                    "description": "Creates a timestamp when a document is initially indexed",
+                    "processors": [
+                        {
+                        "set": {
+                            "field": "_source._timestamp",
+                            "value": "{{_ingest.timestamp}}"
+                            }
+                        }
+                    ]
+                }
+                resp = requests.put(url)
+                if resp.json().get("errors"):
+                    raise LoggerException('Failed to create a ingest pipeline')
+        except Exception as ex:
+            raise LoggerException('Failed to create a ingest pipeline: '+str(ex))
+
     def __insert(self, idx, arr):
         url = '{}/{}/'.format(self.__elastic_url, idx)
         resp = requests.get(url)
         if resp.json().get("error"):
-            resp = requests.put(url, json={})
+            mapping_json = {
+                "settings" : {
+                    "default_pipeline": "auto_now_add"
+                }
+            }
+            resp = requests.put(url, json=mapping_json)
         njson = []
         for item in arr:
             item = Meta.add_meta(idx, item)
@@ -113,6 +141,7 @@ class ElasticLogger:
 
             if resp.json().get("errors"):
                 print("Not updated")
+                raise LoggerException('Failed to add record in '+idx)
 
     def __find(self, idx, es_query):
         url = "{}/{}/_search".format(self.__elastic_url, idx)

@@ -8,8 +8,8 @@ class Meta:
         if item:
             item['_log_id'] = get_uuid(idx)
             now = datetime.now()
-            item['_updated_at'] = now.strftime("%d-%b-%Y %I:%M %p")
-            item['_updated_date'] = now.strftime("%Y-%m-%d")
+            item['_updated_at'] = now.strftime("%d-%m-%Y %H:%M:%S")
+            # item['_updated_date'] = now.strftime("%Y-%m-%d")
         return item
 
 class Response:
