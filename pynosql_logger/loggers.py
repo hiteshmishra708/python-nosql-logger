@@ -207,7 +207,8 @@ class ElasticLogger:
                 SystemLog.print_log(message)
             return {
                 'success': True,
-                'message': message
+                'message': message,
+                'data': all_indexes
             }
         except Exception as ex:
             return Response.get_error(ex)
