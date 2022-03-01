@@ -199,10 +199,10 @@ class ElasticLogger:
         """Get the available log indexes.
         """
         try:
-            resp = requests.get(settings.ELASTIC_SEARCH_END_POINT + '/_cat/indices?format=json&pretty=true')
+            resp = requests.get(self.__elastic_url + '/_cat/indices?format=json&pretty=true')
             all_indexes = json.loads(resp.text)
             all_indexes = [i['index'] for i in all_indexes if '_log' in i['index']]
-            message = 'Found {} index'.format(count, ', '.join(len(all_indexes)))
+            message = 'Found {} index'.format(len(all_indexes))
             if self.log_actions:
                 SystemLog.print_log(message)
             return {
